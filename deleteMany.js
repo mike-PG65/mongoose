@@ -1,7 +1,13 @@
 require('./mongooseSetup');
-const Person = require('./models/person');
+const Person = require('./models/Person');
 
-Person.remove({ name: 'Mary' }, (err, result) => {
-  if (err) return console.error(err);
-  console.log('Delete result:', result);
-});
+async function deletePeopleNamedMary() {
+  try {
+    const result = await Person.deleteMany({ name: 'Mary' });
+    console.log('Delete result:', result);
+  } catch (err) {
+    console.error('Error deleting:', err);
+  }
+}
+
+deletePeopleNamedMary();

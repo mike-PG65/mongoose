@@ -1,14 +1,19 @@
 require('./mongooseSetup');
-const Person = require('./models/person');
+const Person = require('./models/Person');
 
 const personName = 'John';
 
-Person.findOneAndUpdate(
-  { name: personName },
-  { age: 20 },
-  { new: true },
-  (err, updatedPerson) => {
-    if (err) return console.error(err);
+async function updatePerson() {
+  try {
+    const updatedPerson = await Person.findOneAndUpdate(
+      { name: personName },
+      { age: 20 },
+      { new: true }
+    );
     console.log('Updated:', updatedPerson);
+  } catch (err) {
+    console.error(err);
   }
-);
+}
+
+updatePerson();

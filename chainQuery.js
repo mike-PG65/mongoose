@@ -1,11 +1,14 @@
 require('./mongooseSetup');
-const Person = require('./models/person');
+const Person = require('./models/Person');
 
 Person.find({ favoriteFoods: 'burrito' })
   .sort({ name: 1 })
   .limit(2)
   .select('-age')
-  .exec((err, data) => {
-    if (err) return console.error(err);
+  .exec()
+  .then(data => {
     console.log('Chained results:', data);
+  })
+  .catch(err => {
+    console.error(err);
   });

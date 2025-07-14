@@ -1,13 +1,19 @@
 require('./mongooseSetup');
-const Person = require('./models/person');
+const Person = require('./models/Person');
 
-const newPerson = new Person({
-  name: 'Alice',
-  age: 25,
-  favoriteFoods: ['Pizza', 'Chocolate']
-});
+async function createPerson() {
+  try {
+    const newPerson = new Person({
+      name: 'Alice',
+      age: 25,
+      favoriteFoods: ['Pizza', 'Chocolate']
+    });
 
-newPerson.save((err, data) => {
-  if (err) return console.error(err);
-  console.log('Saved person:', data);
-});
+    const savedPerson = await newPerson.save();
+    console.log('Saved person:', savedPerson);
+  } catch (err) {
+    console.error('Error saving person:', err);
+  }
+}
+
+createPerson();

@@ -1,7 +1,13 @@
 require('./mongooseSetup');
-const Person = require('./models/person');
+const Person = require('./models/Person');
 
-Person.find({ name: 'John' }, (err, people) => {
-  if (err) return console.error(err);
-  console.log('Found people:', people);
-});
+async function findPeopleByName() {
+  try {
+    const people = await Person.find({ name: 'John' });
+    console.log('Found people:', people);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+findPeopleByName();

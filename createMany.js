@@ -1,13 +1,19 @@
 require('./mongooseSetup');
-const Person = require('./models/person');
+const Person = require('./models/Person');
 
-const arrayOfPeople = [
-  { name: 'Mary', age: 23, favoriteFoods: ['Salad'] },
-  { name: 'John', age: 30, favoriteFoods: ['Burger'] },
-  { name: 'Steve', age: 20, favoriteFoods: ['Burrito'] }
-];
+async function createManyPeople() {
+  const people = [
+    { name: 'Alice', age: 25, favoriteFoods: ['Pizza'] },
+    { name: 'Bob', age: 30, favoriteFoods: ['Pasta'] },
+    { name: 'Charlie', age: 35, favoriteFoods: ['Steak'] }
+  ];
 
-Person.create(arrayOfPeople, (err, people) => {
-  if (err) return console.error(err);
-  console.log('People created:', people);
-});
+  try {
+    const createdPeople = await Person.create(people);
+    console.log('Created people:', createdPeople);
+  } catch (err) {
+    console.error('Error creating people:', err);
+  }
+}
+
+createManyPeople();

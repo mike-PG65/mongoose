@@ -1,9 +1,19 @@
 require('./mongooseSetup');
-const Person = require('./models/person');
+const Person = require('./models/Person');
 
 const food = 'Burrito';
 
-Person.findOne({ favoriteFoods: food }, (err, person) => {
-  if (err) return console.error(err);
-  console.log('Found one:', person);
-});
+async function findPersonByFood() {
+  try {
+    const person = await Person.findOne({ favoriteFoods: food });
+    if (!person) {
+      console.log(`No person found who likes ${food}`);
+      return;
+    }
+    console.log('Found one:', person);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+findPersonByFood();

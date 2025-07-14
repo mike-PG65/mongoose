@@ -1,9 +1,20 @@
 require('./mongooseSetup');
-const Person = require('./models/person');
+const Person = require('./models/Person');
 
-const personId = 'PUT_ID_HERE';
+const personId = '68752c304832d7e927ccf20c';
 
-Person.findById(personId, (err, person) => {
-  if (err) return console.error(err);
-  console.log('Found by ID:', person);
-});
+
+async function findPersonById() {
+  try {
+    const person = await Person.findById(personId);
+    if (!person) {
+      console.log('Person not found');
+      return;
+    }
+    console.log('Found by ID:', person);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+findPersonById();
